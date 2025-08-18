@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include<locale.h>
 
 #define TAM_NOME 100
 #define TAM_TEL 15
@@ -112,6 +113,7 @@ void liberarLista(Contato* inicio) {
 }
 
 int main() {
+    setlocale(LC_ALL, "pt_BR"); // Configura a localidade para UTF-8
     Contato* lista = NULL;
     int opcao;
     char nome[TAM_NOME], telefone[TAM_TEL], cpf[TAM_CPF];
@@ -166,5 +168,4 @@ int main() {
         }
     } while (opcao != 0);
 
-    return 0;
 }
