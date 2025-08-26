@@ -127,7 +127,7 @@ int main() {
         printf("| >0. Sair             |\n");
         printf("|======================|\n");
         printf("\n *Escolha uma opção:*\n");
-        printf("\n>");
+        printf("\n=>");
         scanf("%d", &opcao);
         getchar(); // Limpar buffer
 
