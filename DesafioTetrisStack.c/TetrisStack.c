@@ -1,16 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <locale.h>
 
 #define MAX 5 // Tamanho máximo da fila
 
+// Definição dos tipos de peças
 typedef enum { I, O, T, L } TipoPeca;
 
+// Estrutura para representar uma peça
 typedef struct {
     TipoPeca tipo;
     int id;
 } Peca;
 
+// Estrutura da fila circular   
 typedef struct {
     Peca itens[MAX];
     int inicio;
@@ -67,7 +71,7 @@ char tipoParaChar(TipoPeca tipo) {
 }
 
 // Mostra a fila
-void mostrarFila(const Fila *f) {
+void mostrarFila(Fila *f) {
     printf("\nFila de peças:\n");
     if (filaVazia(f)) {
         printf("[Vazia]\n");
@@ -81,21 +85,27 @@ void mostrarFila(const Fila *f) {
 
 // Mostra o menu
 void mostrarMenu() {
-    printf("\nOpções:\n");
+    printf("\n****** Opções ******\n");
     printf("1 - Jogar peça\n");
     printf("2 - Inserir nova peça\n");
     printf("0 - Sair\n");
-    printf("Escolha: ");
+    printf("***********************\n");
+    printf("\n=> Escolha: ");
 }
 
 int main() {
+    setlocale(LC_ALL, "pt_BR.UTF-8");
     Fila fila;
     int opcao;
     Peca p;
 
-    srand((unsigned)time(NULL));
-    inicializarFila(&fila);
+// Inicializa o gerador de números aleatórios
+srand((unsigned int) time(NULL));
 
+// Inicializa a fila
+inicializaFila(&fila);
+
+// Preenche a fila inicialmente
     for (int i = 0; i < MAX; i++) {
         inserir(&fila, gerarPeca());
     }
@@ -108,17 +118,17 @@ int main() {
         switch (opcao) {
             case 1:
                 if (remover(&fila, &p))
-                    printf("Peça jogada: [%c %d]\n", tipoParaChar(p.tipo), p.id);
+                    printf("\n=> Peça jogada: [%c %d]\n", tipoParaChar(p.tipo), p.id);
                 else
-                    printf("Fila vazia.\n");
+                    printf("--- Fila vazia.---\n");
                 break;
 
             case 2:
                 p = gerarPeca();
                 if (inserir(&fila, p))
-                    printf("Peça inserida: [%c %d]\n", tipoParaChar(p.tipo), p.id);
+                    printf("\n=> Peça inserida: [%c %d]\n", tipoParaChar(p.tipo), p.id);
                 else
-                    printf("Fila cheia.\n");
+                    printf("+++ Fila cheia. +++\n");
                 break;
 
             case 0:
